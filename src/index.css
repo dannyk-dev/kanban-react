@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.app-wrapper {
+  @apply container text-center bg-gray-900 m-auto min-h-screen flex justify-center shadow-2xl shadow-gray-950 rounded-2xl;
+}
