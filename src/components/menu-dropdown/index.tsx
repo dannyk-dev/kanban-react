@@ -5,21 +5,17 @@ import {
   MenuItems,
   Transition,
 } from "@headlessui/react";
-import {
-  EllipsisHorizontalIcon,
-  PencilIcon,
-  TrashIcon,
-} from "@heroicons/react/16/solid";
+import { EllipsisHorizontalIcon } from "@heroicons/react/16/solid";
 import React from "react";
 import { Link } from "react-router-dom";
-import DeleteGroupModal from "../modals/DeleteGroupModal";
+import DeleteGroupModal from "../modals/delete/DeleteGroupModal";
 
 type MenuConfigTitle = "Group" | "Item";
 
 type MenuConfig = {
   text?: string;
   href?: string;
-  clickAction?: React.ReactNode;
+  element?: React.ReactNode;
 };
 
 const MenuConfigOptions: Record<MenuConfigTitle, MenuConfig[]> = {
@@ -28,15 +24,7 @@ const MenuConfigOptions: Record<MenuConfigTitle, MenuConfig[]> = {
       href: "/edit",
     },
     {
-      clickAction: (
-        <DeleteGroupModal
-          buttonContent={
-            <>
-              <TrashIcon className="size-5 fill-white/30" /> Delete
-            </>
-          }
-        />
-      ),
+      element: <DeleteGroupModal />,
     },
   ],
   Item: [
@@ -73,9 +61,9 @@ const MenuDropdown = ({ option }: MenuDropDownProps) => {
           anchor="bottom end"
           className="w-52 origin-top-right rounded-xl border border-white/5 bg-gray-700 p-1 text-sm/6 text-white [--anchor-gap:var(--spacing-1)] focus:outline-none"
         >
-          {MenuConfigOptions[option].map(({ href, text, clickAction }) => (
+          {MenuConfigOptions[option].map(({ href, text, element }) => (
             <MenuItem key={text}>
-              {!clickAction ? (
+              {!element ? (
                 <Link
                   to={href || "#"}
                   className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-gray-600"
@@ -83,7 +71,7 @@ const MenuDropdown = ({ option }: MenuDropDownProps) => {
                   {text || "Link"}
                 </Link>
               ) : (
-                clickAction
+                element
               )}
             </MenuItem>
           ))}

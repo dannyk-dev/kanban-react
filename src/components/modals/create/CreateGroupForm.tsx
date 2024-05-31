@@ -10,18 +10,15 @@ import {
 } from "@headlessui/react";
 import clsx from "clsx";
 import { FormikErrors, useFormik } from "formik";
-import { useCreateTodoGroup } from "../../hooks/todo-groups";
+import { useCreateTodoGroup } from "../../../hooks/todo-groups";
+import { ModalActionProps } from "../types";
 
 type FormValues = {
   title: string;
   description?: string;
 };
 
-type CreateGroupFormProps = {
-  onCompleteMutation: () => void;
-};
-
-const CreateGroupForm = ({ onCompleteMutation }: CreateGroupFormProps) => {
+const CreateGroupForm = ({ close: closeModal }: ModalActionProps) => {
   const { trigger, isMutating } = useCreateTodoGroup();
 
   const validate = (values: FormValues) => {
@@ -44,7 +41,7 @@ const CreateGroupForm = ({ onCompleteMutation }: CreateGroupFormProps) => {
       trigger({
         ...values,
       });
-      onCompleteMutation();
+      closeModal();
     },
   });
 

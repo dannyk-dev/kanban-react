@@ -5,3 +5,11 @@
 .app-wrapper {
   @apply container text-center bg-gray-900 m-auto min-h-screen flex justify-center shadow-2xl shadow-gray-950 rounded-2xl;
 }
+
+.standard-button {
+  @apply flex items-center self-end mb-1 ml-3 rounded-md bg-gray-700 py-2.5 px-3 text-sm font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[open]:bg-gray-700 data-[focus]:outline-1 data-[focus]:outline-white;
+}
+
+.menu-button {
+  @apply flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-gray-600 hover:bg-gray-600;
+}

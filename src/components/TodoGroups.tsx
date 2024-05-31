@@ -3,8 +3,10 @@ import { useGetTodoGroups } from "../hooks/todo-groups";
 import GroupCard from "./GroupCard";
 import Search from "./Search";
 import { TodoGroup } from "../utils/types";
-import GroupModal from "./modals/GroupModal";
 import { alphabeticalOrder } from "../utils/sort";
+import Modal from "./modals/Modal";
+import CreateGroupForm from "./modals/create/CreateGroupForm";
+import { PlusIcon } from "@heroicons/react/16/solid";
 
 const TodoGroups = () => {
   const { data } = useGetTodoGroups();
@@ -34,7 +36,10 @@ const TodoGroups = () => {
         <h1 className="text-sky-700 text-2xl text-center py-5">Your Tasks</h1>
         <div className="flex items-center h-full  ">
           <Search searchText={searchText} setSearchText={setSearchText} />
-          <GroupModal />
+          <Modal buttonContent={<PlusIcon className="size-4 fill-gray-300" />}>
+            {/*  @ts-expect-error: Suppress error for missing props*/}
+            <CreateGroupForm />
+          </Modal>
         </div>
       </div>
 
