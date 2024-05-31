@@ -1,8 +1,16 @@
 import { TrashIcon } from "@heroicons/react/16/solid";
 import Modal from "../Modal";
 import DeleteGroupDialog from "./DeleteGroupDialog";
+import { ModalMenuProps } from "../types";
+import { useDeleteTodoGroup } from "../../../hooks/todo-groups";
 
-const DeleteGroupModal = () => {
+const DeleteGroupModal = ({ todoGroupId }: ModalMenuProps) => {
+  const { trigger } = useDeleteTodoGroup(todoGroupId);
+
+  const handleDeleteTodoGroup = () => {
+    trigger();
+  };
+
   return (
     <Modal
       buttonType="menu"
@@ -15,7 +23,7 @@ const DeleteGroupModal = () => {
       XMarkShown={false}
     >
       {/*  @ts-expect-error: Suppress error for missing props*/}
-      <DeleteGroupDialog />
+      <DeleteGroupDialog deleteAction={handleDeleteTodoGroup} />
     </Modal>
   );
 };

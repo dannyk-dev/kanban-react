@@ -1,4 +1,5 @@
 export interface Todo {
+  id: string;
   todo: string;
   completed: boolean;
   startAt: Date;
@@ -7,6 +8,7 @@ export interface Todo {
 }
 
 export interface TodoGroup {
+  id: string;
   title: string;
   description: string;
   createdAt: Date;

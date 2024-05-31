@@ -2,7 +2,14 @@ import { Button, DialogTitle } from "@headlessui/react";
 import { TrashIcon } from "@heroicons/react/16/solid";
 import { ModalActionProps } from "../types";
 
-const DeleteGroupDialog = ({ close }: ModalActionProps) => {
+type DeleteDialogProps = {
+  deleteAction: () => void;
+};
+
+const DeleteGroupDialog = ({
+  close,
+  deleteAction,
+}: ModalActionProps & DeleteDialogProps) => {
   return (
     <>
       <DialogTitle as="h3" className="text-base/7 font-medium text-white">
@@ -14,7 +21,10 @@ const DeleteGroupDialog = ({ close }: ModalActionProps) => {
       <div className="mt-4 flex items-center space-x-3">
         <Button
           className="inline-flex items-center gap-2 rounded-md bg-red-700 w-24 text-center py-1.5 px-3 text-sm/6 font-semibold text-gray-400 shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-red-600 data-[open]:bg-red-700 data-[focus]:outline-1 data-[focus]:outline-red-500"
-          onClick={close}
+          onClick={() => {
+            deleteAction();
+            close();
+          }}
         >
           <TrashIcon className="size-6 fill-gray-300 mx-auto" />
         </Button>

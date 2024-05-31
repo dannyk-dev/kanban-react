@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useGetTodoGroups } from "../hooks/todo-groups";
 import GroupCard from "./GroupCard";
 import Search from "./Search";
 import { TodoGroup } from "../utils/types";
@@ -7,28 +6,31 @@ import { alphabeticalOrder } from "../utils/sort";
 import Modal from "./modals/Modal";
 import CreateGroupForm from "./modals/create/CreateGroupForm";
 import { PlusIcon } from "@heroicons/react/16/solid";
+import { useGetTodoGroups } from "../hooks/todo-groups";
+// import { useTodosContext } from "../providers/TodosProvider";
 
 const TodoGroups = () => {
-  const { data } = useGetTodoGroups();
+  const { data: groups } = useGetTodoGroups();
+  // const { groups } = useTodosContext();
   const [renderData, setRenderData] = useState<TodoGroup[] | undefined>(
-    alphabeticalOrder(data)
+    alphabeticalOrder(groups)
   );
   const [searchText, setSearchText] = useState<string>("");
 
   useEffect(() => {
     if (searchText === "") {
-      setRenderData(alphabeticalOrder(data));
+      setRenderData(alphabeticalOrder(groups));
       return;
     }
 
     setRenderData(
       alphabeticalOrder(
-        data?.filter((group) => {
+        groups?.filter((group) => {
           return group.title.toLowerCase().includes(searchText.toLowerCase());
         })
       )
     );
-  }, [searchText, setRenderData, data]);
+  }, [searchText, setRenderData, groups]);
 
   return (
     <div className="flex flex-col justify-start space-y-10 w-full  items-center pt-4 pb-8 ">

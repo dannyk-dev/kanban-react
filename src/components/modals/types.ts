@@ -23,3 +23,7 @@ export interface ModalActionProps {
   close: () => void;
   setIsOpen: (isOpen: boolean) => void;
 }
+
+export interface ModalMenuProps {
+  todoGroupId: string;
+}

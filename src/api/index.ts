@@ -16,3 +16,7 @@ export const createTodoGroup = async (
     description: arg.description,
   });
 };
+
+export const deleteTodoGroup = async (url: string) => {
+  await TodoApiInstance.delete(url);
+};

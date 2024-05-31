@@ -6,16 +6,18 @@ import {
   Transition,
 } from "@headlessui/react";
 import { EllipsisHorizontalIcon } from "@heroicons/react/16/solid";
-import React from "react";
+import React, { JSXElementConstructor, ReactElement } from "react";
 import { Link } from "react-router-dom";
 import DeleteGroupModal from "../modals/delete/DeleteGroupModal";
+import { ModalMenuProps } from "../modals/types";
 
 type MenuConfigTitle = "Group" | "Item";
 
 type MenuConfig = {
   text?: string;
   href?: string;
-  element?: React.ReactNode;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  element?: ReactElement<ModalMenuProps, string | JSXElementConstructor<any>>;
 };
 
 const MenuConfigOptions: Record<MenuConfigTitle, MenuConfig[]> = {
@@ -24,6 +26,7 @@ const MenuConfigOptions: Record<MenuConfigTitle, MenuConfig[]> = {
       href: "/edit",
     },
     {
+      // @ts-expect-error: Suppress error for missing props
       element: <DeleteGroupModal />,
     },
   ],
@@ -40,10 +43,11 @@ const MenuConfigOptions: Record<MenuConfigTitle, MenuConfig[]> = {
 };
 
 interface MenuDropDownProps {
+  todoGroupId: string;
   option: MenuConfigTitle;
 }
 
-const MenuDropdown = ({ option }: MenuDropDownProps) => {
+const MenuDropdown = ({ option, todoGroupId }: MenuDropDownProps) => {
   return (
     <Menu>
       <MenuButton className="inline-flex items-center gap-2 rounded-md bg-gray-800 py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-700 data-[open]:bg-gray-700 data-[focus]:outline-1 data-[focus]:outline-white">
@@ -71,7 +75,7 @@ const MenuDropdown = ({ option }: MenuDropDownProps) => {
                   {text || "Link"}
                 </Link>
               ) : (
-                element
+                React.cloneElement(element, { todoGroupId })
               )}
             </MenuItem>
           ))}
