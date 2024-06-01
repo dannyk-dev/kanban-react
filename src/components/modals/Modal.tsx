@@ -17,13 +17,8 @@ const Modal = ({
 }: ModalProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  function open() {
-    setIsOpen(true);
-  }
-
-  function close() {
-    setIsOpen(false);
-  }
+  const open = () => setIsOpen(true);
+  const close = () => setIsOpen(false);
 
   const actions: ModalActionProps = {
     isOpen,

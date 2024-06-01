@@ -19,7 +19,7 @@ type FormValues = {
 };
 
 const CreateGroupForm = ({ close: closeModal }: ModalActionProps) => {
-  const { trigger } = useCreateTodoGroup();
+  const { trigger, isMutating } = useCreateTodoGroup();
 
   const validate = (values: FormValues) => {
     const errors: FormikErrors<FormValues> = {};
@@ -41,7 +41,8 @@ const CreateGroupForm = ({ close: closeModal }: ModalActionProps) => {
       trigger({
         ...values,
       });
-      closeModal();
+
+      !isMutating && closeModal();
     },
   });
 
@@ -99,7 +100,9 @@ const CreateGroupForm = ({ close: closeModal }: ModalActionProps) => {
             onClick={() => formik.resetForm}
             className="flex items-center mx-auto gap-2 rounded-md bg-gray-700 py-2 w-full justify-center text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[open]:bg-gray-700 data-[focus]:outline-1 data-[focus]:outline-white"
           >
-            {formik.isSubmitting ? "Loading..." : "Create List Group"}
+            {formik.isSubmitting && isMutating
+              ? "Loading..."
+              : "Create List Group"}
           </Button>
         </Field>
       </Fieldset>

@@ -6,21 +6,12 @@ import {
   Transition,
 } from "@headlessui/react";
 import { EllipsisHorizontalIcon } from "@heroicons/react/16/solid";
-import React, { JSXElementConstructor, ReactElement } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
+import { MenuConfigTitle, MenuConfig, MenuDropDownProps } from "./types";
 import DeleteGroupModal from "../modals/delete/DeleteGroupModal";
-import { ModalMenuProps } from "../modals/types";
 
-type MenuConfigTitle = "Group" | "Item";
-
-type MenuConfig = {
-  text?: string;
-  href?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  element?: ReactElement<ModalMenuProps, string | JSXElementConstructor<any>>;
-};
-
-const MenuConfigOptions: Record<MenuConfigTitle, MenuConfig[]> = {
+const MenuConfigOptions: Readonly<Record<MenuConfigTitle, MenuConfig[]>> = {
   Group: [
     {
       href: "/edit",
@@ -42,11 +33,6 @@ const MenuConfigOptions: Record<MenuConfigTitle, MenuConfig[]> = {
   ],
 };
 
-interface MenuDropDownProps {
-  todoGroupId: string;
-  option: MenuConfigTitle;
-}
-
 const MenuDropdown = ({ option, todoGroupId }: MenuDropDownProps) => {
   return (
     <Menu>
@@ -66,7 +52,7 @@ const MenuDropdown = ({ option, todoGroupId }: MenuDropDownProps) => {
           className="w-52 origin-top-right rounded-xl border border-white/5 bg-gray-700 p-1 text-sm/6 text-white [--anchor-gap:var(--spacing-1)] focus:outline-none"
         >
           {MenuConfigOptions[option].map(({ href, text, element }) => (
-            <MenuItem key={text}>
+            <MenuItem key={Math.trunc(Math.random() * 1000)}>
               {!element ? (
                 <Link
                   to={href || "#"}

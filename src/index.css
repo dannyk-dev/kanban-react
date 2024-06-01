@@ -7,7 +7,7 @@
 }
 
 .standard-button {
-  @apply flex items-center self-end mb-1 ml-3 rounded-md bg-gray-700 py-2.5 px-3 text-sm font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[open]:bg-gray-700 data-[focus]:outline-1 data-[focus]:outline-white;
+  @apply flex items-center self-end mb-1 ml-3 rounded-md bg-gray-700 py-2 px-3 text-sm font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[open]:bg-gray-700 data-[focus]:outline-1 data-[focus]:outline-white;
 }
 
 .menu-button {
